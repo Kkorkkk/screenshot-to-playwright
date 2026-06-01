@@ -1,0 +1,12 @@
+{
+  "name": "login screen",
+  "url": "http://localhost:3000/login",
+  "elements": [
+    { "role": "textbox", "name": "Email", "value": "demo@example.com" },
+    { "role": "textbox", "name": "Password", "value": "correct-horse" },
+    { "role": "button", "name": "Sign in", "action": "click" }
+  ],
+  "assertions": [
+    { "text": "Dashboard" }
+  ]
+}

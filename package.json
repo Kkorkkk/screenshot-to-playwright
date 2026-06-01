@@ -1,0 +1,38 @@
+{
+  "name": "screenshot-to-playwright",
+  "version": "0.1.0",
+  "description": "Generate Playwright test specs from screenshot annotation JSON.",
+  "type": "module",
+  "bin": {
+    "screenshot-to-playwright": "./src/index.js"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "cli",
+    "developer-tools",
+    "ai",
+    "github"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "author": "Kkorkkk",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kkorkkk/screenshot-to-playwright.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kkorkkk/screenshot-to-playwright/issues"
+  },
+  "homepage": "https://github.com/Kkorkkk/screenshot-to-playwright#readme",
+  "files": [
+    "src",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ]
+}
