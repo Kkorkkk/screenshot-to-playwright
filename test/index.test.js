@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { generatePlaywrightSpec } from "../src/index.js";
+import { generatePlaywrightSpec, validateAnnotation } from "../src/index.js";
 
 test("generates fill and click actions", () => {
   const spec = generatePlaywrightSpec({
@@ -18,4 +18,15 @@ test("generates fill and click actions", () => {
   assert.match(spec, /page.locator/);
   assert.match(spec, /page.screenshot/);
   assert.match(spec, /Dashboard/);
+});
+
+test("rejects incomplete annotation elements", () => {
+  assert.throws(
+    () => validateAnnotation({ elements: [{ role: "button" }] }),
+    /needs a name or text/
+  );
+  assert.throws(
+    () => validateAnnotation({ elements: [{ action: "click" }] }),
+    /needs selector/
+  );
 });

@@ -24,7 +24,29 @@ function escapeRegex(value) {
     .replaceAll("]", "\\]");
 }
 
+export function validateAnnotation(annotation) {
+  if (!annotation || typeof annotation !== "object" || Array.isArray(annotation)) {
+    throw new Error("Annotation must be a JSON object.");
+  }
+  if (annotation.elements != null && !Array.isArray(annotation.elements)) {
+    throw new Error("Annotation field 'elements' must be an array.");
+  }
+  if (annotation.assertions != null && !Array.isArray(annotation.assertions)) {
+    throw new Error("Annotation field 'assertions' must be an array.");
+  }
+  for (const [index, element] of (annotation.elements || []).entries()) {
+    if (!element.selector && !element.role && !element.text && element.action !== "screenshot") {
+      throw new Error(`Element ${index + 1} needs selector, role, text, or screenshot action.`);
+    }
+    if (element.role && !(element.name || element.text)) {
+      throw new Error(`Element ${index + 1} with role '${element.role}' needs a name or text.`);
+    }
+  }
+  return annotation;
+}
+
 export function generatePlaywrightSpec(annotation) {
+  validateAnnotation(annotation);
   const name = annotation.name || "generated screenshot flow";
   const url = annotation.url || "/";
   const lines = [
@@ -67,5 +89,10 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     console.error("Usage: screenshot-to-playwright annotations.json");
     process.exit(1);
   }
-  console.log(generatePlaywrightSpec(JSON.parse(readFileSync(file, "utf8"))));
+  try {
+    console.log(generatePlaywrightSpec(JSON.parse(readFileSync(file, "utf8"))));
+  } catch (error) {
+    console.error(`screenshot-to-playwright: ${error.message}`);
+    process.exit(2);
+  }
 }

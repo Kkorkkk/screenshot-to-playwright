@@ -13,8 +13,9 @@
   "keywords": [
     "cli",
     "developer-tools",
-    "ai",
-    "github"
+    "playwright",
+    "testing",
+    "annotations"
   ],
   "license": "MIT",
   "engines": {

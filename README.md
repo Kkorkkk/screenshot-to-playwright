@@ -2,7 +2,7 @@
 
 Turn screenshot annotations into a Playwright test starter.
 
-This MVP is local and deterministic: provide OCR/vision annotations as JSON and it generates a readable test file.
+Important: this tool does not perform OCR or computer vision. It expects a small annotation JSON file created by you or another vision/OCR step, then generates a readable Playwright starter spec.
 
 ## Quick start
 
@@ -24,3 +24,7 @@ node src/index.js examples/login-screen.annotations.json > login.spec.ts
   ]
 }
 ```
+
+## Limits
+
+Use this as an annotation-to-test bridge. It validates missing roles/names and unsupported shapes, but it will not inspect screenshots or infer selectors by itself.
