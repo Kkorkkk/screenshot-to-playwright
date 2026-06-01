@@ -29,6 +29,10 @@ test("rejects incomplete annotation elements", () => {
     () => validateAnnotation({ elements: [{ action: "click" }] }),
     /needs selector/
   );
+  assert.throws(
+    () => validateAnnotation({ elements: [{ selector: "#save", action: "clik" }] }),
+    /unsupported action/
+  );
 });
 
 test("validates CLI file argument", () => {

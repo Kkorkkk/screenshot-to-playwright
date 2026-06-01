@@ -1,8 +1,18 @@
 # Screenshot To Playwright
 
+[![CI](https://github.com/Kkorkkk/screenshot-to-playwright/actions/workflows/ci.yml/badge.svg)](https://github.com/Kkorkkk/screenshot-to-playwright/actions/workflows/ci.yml)
+
 Turn screenshot annotations into a Playwright test starter.
 
 Important: this tool does not perform OCR or computer vision. It expects a small annotation JSON file created by you or another vision/OCR step, then generates a readable Playwright starter spec.
+
+## Install
+
+```bash
+npx screenshot-to-playwright examples/login-screen.annotations.json
+npm install -g screenshot-to-playwright
+screenshot-to-playwright examples/login-screen.annotations.json
+```
 
 ## Quick start
 
@@ -37,3 +47,7 @@ The generated file is a starter spec. Review selectors and assertions before com
 await page.getByRole("textbox", { name: "Email" }).fill("demo@example.com");
 await page.getByRole("button", { name: "Sign in" }).click();
 ```
+
+## Status
+
+Experimental 0.1 CLI. The tool is small on purpose, with no runtime dependencies. Review generated commands, code, and reports before using them in production workflows.

@@ -7,22 +7,7 @@ function quote(value) {
 }
 
 function escapeRegex(value) {
-  return String(value)
-    .replaceAll("\\", "\\\\")
-    .replaceAll("/", "\\/")
-    .replaceAll(".", "\\.")
-    .replaceAll("*", "\\*")
-    .replaceAll("+", "\\+")
-    .replaceAll("?", "\\?")
-    .replaceAll("^", "\\^")
-    .replaceAll("$", "\\$")
-    .replaceAll("{", "\\{")
-    .replaceAll("}", "\\}")
-    .replaceAll("(", "\\(")
-    .replaceAll(")", "\\)")
-    .replaceAll("|", "\\|")
-    .replaceAll("[", "\\[")
-    .replaceAll("]", "\\]");
+  return String(value).replace(/[.*+?^${}()|[\]\\/-]/g, "\\$&");
 }
 
 export function validateAnnotation(annotation) {
@@ -36,6 +21,10 @@ export function validateAnnotation(annotation) {
     throw new Error("Annotation field 'assertions' must be an array.");
   }
   for (const [index, element] of (annotation.elements || []).entries()) {
+    const supportedActions = new Set([undefined, "click", "check", "fill", "press", "screenshot"]);
+    if (!supportedActions.has(element.action)) {
+      throw new Error(`Element ${index + 1} has unsupported action '${element.action}'.`);
+    }
     if (!element.selector && !element.role && !element.text && element.action !== "screenshot") {
       throw new Error(`Element ${index + 1} needs selector, role, text, or screenshot action.`);
     }
