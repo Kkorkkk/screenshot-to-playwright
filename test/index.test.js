@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { generatePlaywrightSpec, validateAnnotation } from "../src/index.js";
+import { generatePlaywrightSpec, parseCliArgs, validateAnnotation } from "../src/index.js";
 
 test("generates fill and click actions", () => {
   const spec = generatePlaywrightSpec({
@@ -29,4 +29,9 @@ test("rejects incomplete annotation elements", () => {
     () => validateAnnotation({ elements: [{ action: "click" }] }),
     /needs selector/
   );
+});
+
+test("validates CLI file argument", () => {
+  assert.deepEqual(parseCliArgs(["examples/login-screen.annotations.json"]), { file: "examples/login-screen.annotations.json" });
+  assert.throws(() => parseCliArgs([]), /Usage:/);
 });

@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import { readFileSync } from "node:fs";
+import { pathToFileURL } from "node:url";
 
 function quote(value) {
   return JSON.stringify(String(value ?? ""));
@@ -83,13 +84,15 @@ export function generatePlaywrightSpec(annotation) {
   return lines.join("\n");
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
-  const file = process.argv[2];
-  if (!file) {
-    console.error("Usage: screenshot-to-playwright annotations.json");
-    process.exit(1);
-  }
+export function parseCliArgs(args) {
+  const file = args.find((arg) => !arg.startsWith("--"));
+  if (!file) throw new Error("Usage: screenshot-to-playwright annotations.json");
+  return { file };
+}
+
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
+    const { file } = parseCliArgs(process.argv.slice(2));
     console.log(generatePlaywrightSpec(JSON.parse(readFileSync(file, "utf8"))));
   } catch (error) {
     console.error(`screenshot-to-playwright: ${error.message}`);

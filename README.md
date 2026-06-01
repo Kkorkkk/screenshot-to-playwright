@@ -28,3 +28,12 @@ node src/index.js examples/login-screen.annotations.json > login.spec.ts
 ## Limits
 
 Use this as an annotation-to-test bridge. It validates missing roles/names and unsupported shapes, but it will not inspect screenshots or infer selectors by itself.
+
+## Output
+
+The generated file is a starter spec. Review selectors and assertions before committing it:
+
+```ts
+await page.getByRole("textbox", { name: "Email" }).fill("demo@example.com");
+await page.getByRole("button", { name: "Sign in" }).click();
+```
