@@ -2,6 +2,12 @@
 
 [![CI](https://github.com/Kkorkkk/screenshot-to-playwright/actions/workflows/ci.yml/badge.svg)](https://github.com/Kkorkkk/screenshot-to-playwright/actions/workflows/ci.yml)
 
+## Overview / 项目说明
+
+English: Screenshot To Playwright converts human-created screenshot annotations into a readable Playwright starter spec. It is designed for teams that already have labels, OCR output, or review notes and want to turn those cues into maintainable browser tests quickly.
+
+中文：Screenshot To Playwright 会把人工整理的截图标注转换成可读的 Playwright 测试起点。它适合已经有标注、OCR 结果或评审笔记的团队，用来快速把这些线索变成可维护的浏览器自动化测试。
+
 Turn screenshot annotations into a Playwright test starter.
 
 Important: this tool does not perform OCR or computer vision. It expects a small annotation JSON file created by you or another vision/OCR step, then generates a readable Playwright starter spec.
